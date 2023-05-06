@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from portfolio.local_settings import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c(t8)!hd@&gzbz4l1tqeo-5si11jnvu$%-%m^2kz)+37^w@!yj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -77,12 +79,28 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'portfolio',
+            'USER': 'root',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'portfolio',
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '3306',
+        }
+    }
 
 
 # Password validation
@@ -126,7 +144,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    # "https://example.com",
-    # "http://localhost:8080",
-]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        # "https://example.com",
+        # "http://localhost:8080",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        # "https://example.com",
+        # "http://localhost:8080",
+    ]
