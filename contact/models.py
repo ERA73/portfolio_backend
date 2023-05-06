@@ -9,9 +9,15 @@ class Contact(models.Model):
     create_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(default=datetime.now)
 
+    def __str__(self):
+        return self.email
+
 class message(models.Model):
     contact = models.ForeignKey(Contact, related_name="message_contact", on_delete=models.CASCADE)
     content = models.TextField(blank=False, null=False)
     reply_success = models.BooleanField(default=0)
 
     create_at = models.DateTimeField(default=datetime.now)
+
+    def __str__(self):
+        return f"{self.contact.email} --- {self.reply_success}"

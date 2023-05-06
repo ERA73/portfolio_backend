@@ -1,3 +1,3 @@
-from django.contrib import admin
+from commons.functions import register_app_models
 
-# Register your models here.
+register_app_models('contact')
