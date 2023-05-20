@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from .local_settings import config
 from pathlib import Path
+# from decouple import config
 
-from portfolio.local_settings import *
+DEBUG = config('DEBUG')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c(t8)!hd@&gzbz4l1tqeo-5si11jnvu$%-%m^2kz)+37^w@!yj'
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -79,28 +81,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'portfolio',
-            'USER': 'root',
-            'PASSWORD': 'admin',
-            'HOST': 'localhost',
-            'PORT': '3306',
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'portfolio',
-            'USER': '',
-            'PASSWORD': '',
-            'HOST': '',
-            'PORT': '3306',
-        }
-    }
+DATABASES = config('DATABASES')
 
 
 # Password validation
@@ -144,20 +125,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if DEBUG:
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        # "https://example.com",
-        # "http://localhost:8080",
-    ]
-else:
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:5173",
-        # "https://example.com",
-        # "http://localhost:8080",
-    ]
+CORS_ALLOWED_ORIGINS  = config('CORS_ALLOWED_ORIGINS')
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    # 'PATCH',
+    'DELETE',
+    # 'OPTIONS',
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
     }
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
