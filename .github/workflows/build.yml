@@ -24,4 +24,4 @@ jobs:
 
       - name: App Deploy
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ~/projects/portfolio/portfolio_backend && git pull origin main && source env/bin/activate && pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && systemctl restart portfolio"
+          ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ~/projects/portfolio/portfolio_backend && git pull origin main && source env/bin/activate && pip install -r requirements.txt && python manage.py makemigrations contact && python manage.py migrate && systemctl restart portfolio"
