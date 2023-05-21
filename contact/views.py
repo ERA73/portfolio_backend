@@ -1,8 +1,9 @@
+import traceback
 from datetime import datetime
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import authentication, permissions
+from rest_framework import authentication, permissions, status
 from django.contrib.auth.models import User
 from .serializers import ContactSerializer
 from .models import Contact, Message
@@ -27,12 +28,13 @@ class ContactView(APIView):
                 current_contact.save()
                 new_message = Message.objects.create(contact = current_contact, content = message)
             else:
-                current_contact = Contact.objects.create(name = name, email = email).first()
+                current_contact = Contact.objects.create(name = name, email = email)
                 new_message = Message.objects.create(contact = current_contact, content = message)
-
-            sent_email("Message Received", [current_contact.email], "test message")
             
-            return Response(status=201, data={"code":201, "message":"Correct"})
+            sent_email("Message Received", [current_contact.email], messaje=message, attach={"template":"contact.html", "data":{"name":name, "message":message}})
+            new_message.reply_success = True
+            new_message.save()
+            return Response({"message":"Sent Successfully"})
         except Exception as e:
-            print(e)
-            return Response(status=202, data={"code":202, "message":e.args[0]})
+            traceback.print_exc()
+            return Response({"message":"Something unexpected has occurred"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -465,7 +465,7 @@ def sent_email(subject, recipients = [], messaje = "", attach = {}):
 			template = get_template(attach["template"])
 			content = template.render(attach["data"])
 			message.attach_alternative(content, 'text/html')
-		message.send()
+		# message.send()
 		
 		thread = threading.Thread(target=message.send)
 		thread.start()

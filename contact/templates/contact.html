@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .diag_bkg_anim {
+            background: linear-gradient(135deg, #222, #444, #222);
+            background-size: 200% 200%;
+            animation: gradientAnimation 20s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 25% 25%;
+            }
+            50% {
+                background-position: 75% 75%;
+            }
+            100% {
+                background-position: 25% 25%;
+            }
+        }s
+
+        h1 {
+            color: lightskyblue;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .card-container {
+            background-color: #555;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0px 5px rgba(255, 255, 255, 1);
+        }
+
+        .message-container {
+            background-color: #777;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0px 5px rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container diag_bkg_anim">
+        <h1>Thank you for your message</h1>
+        <p>Hello {{ name }},</p>
+        <p>Thank you for contacting me. I have received your message and will get back to you as soon as possible.</p>
+        <p>Best regards,</p>
+        <div class="message-container">
+            <h3>Your Message</h3>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+</body>
+
+</html>
