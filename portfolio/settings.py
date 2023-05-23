@@ -30,6 +30,8 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = True
 
 ALLOWED_HOSTS = [
+    "portfolio.codedevest.com", 
+    "codedevest.com", 
     "www.portfolio.codedevest.com", 
     "www.codedevest.com", 
     "127.0.0.1", 
