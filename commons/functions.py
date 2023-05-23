@@ -473,3 +473,34 @@ def sent_email(subject, recipients = [], messaje = "", attach = {}):
 		thread.start()
 	else:
 		raise Exception(f"Some data is empty: subject = '{subject}' --- recipients = '{recipients}'")
+	
+# class my_config():
+#     def __init__(self):
+#         self.__config = {
+#             'DEBUG': True,
+#             'SECRET_KEY': '',
+#             "DATABASES": {
+#                     'default': {
+#                         'ENGINE': 'django.db.backends.mysql',
+#                         'NAME': 'name_db',
+#                         'USER': '',
+#                         'PASSWORD': '',
+#                         'HOST': 'localhost',
+#                         'PORT': '3306',
+#                     }
+#             },
+#             "CORS_ALLOWED_ORIGINS": (
+#                 "http://localhost:5173",
+#                 "http://127.0.0.1:5173",
+#                 "http://localhost:8000",
+#                 "http://127.0.0.1:8000",
+#             ),
+#             "CORS_ORIGIN_WHITELIST": [
+#                 "http://localhost",
+#                 "http://127.0.0.1",
+#             ],
+#             "EMAIL_HOST_USER": '',
+#             "EMAIL_HOST_PASSWORD": '',
+#         }
+#     def get_value(self, key):
+#         return self.__config[key]
