@@ -1,24 +1,19 @@
 # Set image
 FROM python:3.9-slim
-RUN pip install --upgrade pip 
-RUN apt-get update
-RUN apt-get install python3-dev default-libmysqlclient-dev gcc  -y
-
-# Set continer work directory
+#ENV PYTHONUNBUFFERED 1
+RUN mkdir /app
 WORKDIR /app
-
-# Copy project files to the container
 COPY . .
-
-# Install requirements
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Migrate
-RUN python manage.py makemigrations 
-RUN python manage.py migrate
-
-# Collects static files
-RUN python manage.py collectstatic --noinput
+RUN apt-get update \
+        && apt-get install -y python3-pip \
+        && pip install --upgrade pip \
+        && apt-get install python3-dev default-libmysqlclient-dev gcc  -y  \
+        && pip install --no-cache-dir -r requirements.txt \
+        && pip install --no-cache-dir gunicorn
+#ENTRYPOINT ["sh", "/app/entrypoint.sh"]
+#RUN python manage.py makemigrations
+#RUN python manage.py migrate
+#RUN python manage.py collectstatic --noinput
 
 # Expose port 8000 for django
 EXPOSE 8000
@@ -29,7 +24,7 @@ CMD ["gunicorn", "portfolio.wsgi:application", "--bind", "0.0.0.0:8000"]
 
 
 # FROM python:3.9-slim
-# RUN pip install --upgrade pip 
+# RUN pip install --upgrade pip
 # RUN apt-get update
 # RUN apt-get install python3-dev default-libmysqlclient-dev gcc  -y
 # COPY ./requirements.txt .
