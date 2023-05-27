@@ -24,4 +24,4 @@ jobs:
 
       - name: App Deploy
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ~/projects/portfolio/portfolio_backend && sh deploy.sh"
+          ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ~/projects/portfolio/portfolio_backend && suorce deploy.sh"
